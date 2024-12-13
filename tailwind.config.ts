@@ -15,6 +15,7 @@ export default {
   			violet: '#4D274E',
   			gris: '#757179',
   			blanc: '#DFE0EC',
+			guilouth: '#7d31a3',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

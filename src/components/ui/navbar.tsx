@@ -31,24 +31,23 @@ function Navbar({ children }: NavbarProps) {
         >
           
         </button>
-        {/* Sidebar links */}
         <nav className="p-4 space-y-4">
-          <Link href="/" className="block py-2 px-4 text-noir hover:text-blanc cursor-pointer">
+          <Link href="/" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
             Accueil
           </Link>
-          <Link href="/pages/products" className="block py-2 px-4 ttext-noir hover:text-blanc cursor-pointer">
+          <Link href="/pages/products" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
             Produits
           </Link>
-          <Link href="/pages/cart" className="block py-2 px-4 ttext-noir hover:text-blanc cursor-pointer">
+          <Link href="/pages/cart" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
             Panier
           </Link>
-          <Link href="/pages/login" className="block py-2 px-4 text-noir hover:text-blanc cursor-pointer">
+          <Link href="/pages/login" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
             Connexion
           </Link>
         </nav>
       </div>
 
-      {/* Backdrop */}
+     
       <div
         ref={backdropRef}
         className={`fixed inset-0 bg-black bg-opacity-50 ${
@@ -57,10 +56,9 @@ function Navbar({ children }: NavbarProps) {
         onClick={toggleSidebar}
       ></div>
 
-      {/* Navbar */}
       <div className="bg-bleu w-full h-28 flex justify-between items-center px-4">
         <button onClick={toggleSidebar}>
-          <AlignCenter className="w-8 h-8 text-noir hover:text-white cursor-pointer" />
+          <AlignCenter className="w-8 h-8 text-blanc hover:text-white cursor-pointer" />
         </button>
         <div className="relative w-1/2 max-w-lg">
           {children}
@@ -74,7 +72,7 @@ function Navbar({ children }: NavbarProps) {
           </button>
         </div>
         <Link href="/pages/login">
-          <User className="w-8 h-8 text-noir hover:text-white cursor-pointer" />
+          <User className="w-8 h-8 text-blanc hover:text-esteban cursor-pointer" />
         </Link>
       </div>
     </div>

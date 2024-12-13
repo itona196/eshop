@@ -1,10 +1,8 @@
-import Link from "next/link";
 import Navbar from "@/components/ui/navbar";
 import "./globals.css"
 import NavbarFooter from "@/components/ui/navbarFooter"
 import { useState } from "react";
-import { AppSidebar } from "@/components/sidebarMenu";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
 
 
 
