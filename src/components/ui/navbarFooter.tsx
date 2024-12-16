@@ -13,7 +13,7 @@ function NavbarFooter() {
 <Link href="/pages/cart">
 <h1 className="text-blanc hover:text-blanc cursor-pointer">À propos de nous</h1>
 </Link>
-<Link href="/pages/cart">
+<Link href="/pages/conditions">
 <h1 className="text-blanc hover:text-blanc cursor-pointer">Conditions générales</h1>
 </Link>
 </div>

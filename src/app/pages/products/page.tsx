@@ -16,6 +16,21 @@ const productsItems = [
         title: "veste",
         price: 50,
         imgSource: "/markus-spiske-TXvCcWl3nEI-unsplash.jpg"
+    },
+    {
+        title: "short",
+        price: 30,
+        imgSource: "/markus-spiske-TXvCcWl3nEI-unsplash.jpg"
+    },
+    {
+        title: "chaussettes",
+        price: 10,
+        imgSource: "/markus-spiske-TXvCcWl3nEI-unsplash.jpg"
+    },
+    {
+        title: "chaussures",
+        price: 50,
+        imgSource: "/markus-spiske-TXvCcWl3nEI-unsplash.jpg"
     }
 
 ]
