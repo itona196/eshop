@@ -1,41 +1,24 @@
 import Navbar from "@/components/ui/navbar";
-import "./globals.css"
-import NavbarFooter from "@/components/ui/navbarFooter"
-import { useState } from "react";
-
-
-
+import "./globals.css";
+import NavbarFooter from "@/components/ui/navbarFooter";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-
-
-
   return (
-    
-  
     <html lang="en">
-      
-     
-      
-      <body className="bg-blanc">
-         
-      <header className="fixed top-0 w-full z-10">
-    <Navbar />
-  </header>
-        
-  <main className="flex min-h-screen flex-col">
-  {children}
-</main>
-  
+      <body className="bg-blanc flex flex-col">
+        <header className="fixed top-0 w-full h-16">
+          <Navbar />
+        </header>
 
-  <footer className="fixed bottom-0 w-full z-10">
-    <NavbarFooter />
-  </footer>
-        
-      </body>
       
-     
+        <main className="mt-12">
+          {children}
+        </main>
+
+        <footer className="w-full">
+          <NavbarFooter />
+        </footer>
+      </body>
     </html>
-    
   );
 }

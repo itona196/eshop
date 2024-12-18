@@ -6,8 +6,8 @@ import { AlignCenter, User } from "lucide-react";
 function NavbarFooter() {
   return (
 
-<div className="bg-bleu w-full h-28 flex justify-between items-center px-4">
-<Link href="/pages/cart">
+<div className="bg-bleu w-full h-20 flex justify-between items-center px-4">
+<Link href="/pages/inspectProducts">
 <h1 className=" text-blanc hover:text-blanc cursor-pointer">Aide & Contact</h1>
 </Link>
 <Link href="/pages/cart">

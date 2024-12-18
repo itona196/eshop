@@ -11,7 +11,7 @@ interface porductsCardProps {
 function ProductsCard({title, imgSource, price}:porductsCardProps) {
   return (
    
-      <Card className="bg-bleu h-[100px] w-[200px] flex flex-col justify-between items-center shadow-lg border-0">
+      <Card className=" flex flex-col justify-between items-center shadow-lg border-0">
           <CardContent className="text-center p-0 flex-1">
             <img 
               src={imgSource}

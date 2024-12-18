@@ -21,7 +21,7 @@ function Navbar({ children }: NavbarProps) {
     
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-64 bg-bleu text-black transform ${
+        className={`fixed top-0 left-0 h-full w-59 bg-bleu text-black transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 z-50`}
       >
@@ -32,18 +32,19 @@ function Navbar({ children }: NavbarProps) {
           
         </button>
         <nav className="p-4 space-y-4">
-          <Link href="/" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
+          <Link href="/" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer text-center left-0 w-full">
             Accueil
           </Link>
-          <Link href="/pages/products" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
+          <Link href="/pages/products" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer text-center left-0 w-full">
             Produits
           </Link>
-          <Link href="/pages/cart" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
+          <Link href="/pages/cart" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer text-center left-0 w-full">
             Panier
           </Link>
-          <Link href="/pages/login" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer">
-            Connexion
+          <Link href="/pages/login" className="block py-2 px-4 text-blanc hover:text-blanc cursor-pointer absolute bottom-0 left-0 w-full text-center">
+            Mon compte
           </Link>
+
         </nav>
       </div>
 
@@ -56,7 +57,7 @@ function Navbar({ children }: NavbarProps) {
         onClick={toggleSidebar}
       ></div>
 
-      <div className="bg-bleu w-full h-28 flex justify-between items-center px-4">
+      <div className="bg-bleu w-full h-20 flex justify-between items-center px-4">
         <button onClick={toggleSidebar}>
           <AlignCenter className="w-8 h-8 text-blanc hover:text-white cursor-pointer" />
         </button>
