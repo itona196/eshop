@@ -61,20 +61,21 @@ function Navbar({ children }: NavbarProps) {
         <button onClick={toggleSidebar}>
           <AlignCenter className="w-8 h-8 text-blanc hover:text-white cursor-pointer" />
         </button>
-        <div className="relative w-1/2 max-w-lg">
-          {children}
-          <input
-            type="text"
-            placeholder="Rechercher un produit..."
-            className="w-full px-4 py-2 text-noir border border-noir rounded-lg focus:outline-none focus:ring-2 focus:ring-noir"
-          />
-          <button className="absolute top-1/2 right-3 transform -translate-y-1/2 text-noir hover:text-noir">
-            <Search />
-          </button>
-        </div>
-        <Link href="/pages/login">
-          <User className="w-8 h-8 text-blanc hover:text-esteban cursor-pointer" />
-        </Link>
+        <div className="relative w-1/2 max-w-lg mx-auto">
+  {children}
+  <input
+    type="text"
+    placeholder="Rechercher un produit..."
+    className="w-full px-4 py-2 text-noir border border-noir rounded-lg focus:outline-none focus:ring-2 focus:ring-noir pl-10" // Ajout de padding à gauche pour plus de décalage
+  />
+  <button className="absolute top-1/2 right-3 transform -translate-y-1/2 text-noir hover:text-noir">
+    <Search />
+  </button>
+</div>
+<Link href="/pages/login">
+  <User className="w-8 h-8 text-blanc hover:text-esteban cursor-pointer" />
+</Link>
+
       </div>
     </div>
   );
