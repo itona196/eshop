@@ -6,7 +6,7 @@ export default function HomePage() {
     <div className="flex justify-between items-center h-screen p-6">
     
       <Link href="/pages/products">
-      <Card className="bg-bleu h-[500px] w-[500px] flex flex-col justify-between items-center shadow-lg border-0">
+      <Card className=" h-[500px] w-[500px] flex flex-col justify-between items-center shadow-lg border-0">
           <CardContent className="text-center p-0 flex-1">
             <img
               src="/keagan-henman-Won79_9oUEk-unsplash.jpg"
