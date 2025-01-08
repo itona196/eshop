@@ -33,7 +33,7 @@ function ProductsCard({ title, imgSource, price, description }: ProductsCardProp
         <DialogContent className="fixed inset-0 bg-white p-6 flex flex-col justify-between z-50 w-full h-full">
           <DialogTitle className="text-3xl font-bold text-bleu">{title}</DialogTitle>
           
-          <img
+          <img 
             src={imgSource}
             alt={title}
             className="h-100 w-96 object-cover rounded-md mt-4"
