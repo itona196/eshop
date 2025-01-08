@@ -94,7 +94,8 @@ function Login() {
             </TabsList>
 
             <TabsContent value="Login">
-              <Card>
+              
+              <Card className="">
                 <CardHeader>
                   <CardTitle>Se connecter</CardTitle>
                   <CardDescription>Accédez à votre compte</CardDescription>

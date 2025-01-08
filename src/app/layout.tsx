@@ -6,7 +6,7 @@ import NavbarFooter from "@/components/ui/navbarFooter";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-blanc flex flex-col">
+      <body className="bg-white flex flex-col">
         <header className="fixed top-0 w-full h-16">
           <Navbar />
         </header>
