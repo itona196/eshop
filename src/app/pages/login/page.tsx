@@ -1,7 +1,9 @@
 "use client"; 
 
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -26,8 +28,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
-    // Vérifiez si un utilisateur est connecté à l'initialisation
     if (typeof window !== "undefined") {
       const loggedInUser = localStorage.getItem("loggedInUser");
       setIsLoggedIn(!!loggedInUser);
@@ -89,8 +92,8 @@ function Login() {
         {!isLoggedIn ? (
           <Tabs defaultValue="Login" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="Login" className=" data-[state=active]:bg-bleu data-[state=active]:text-blanc">Se connecter</TabsTrigger>
-              <TabsTrigger value="Register" className="data-[state=active]:bg-bleu data-[state=active]:text-blanc">S'enregistrer</TabsTrigger>
+              <TabsTrigger value="Login" className="border border-noir data-[state=active]:bg-bleu data-[state=active]:text-blanc">Se connecter</TabsTrigger>
+              <TabsTrigger value="Register" className="border border-noir data-[state=active]:bg-bleu data-[state=active]:text-blanc">S'enregistrer</TabsTrigger>
             </TabsList>
 
             <TabsContent value="Login">
@@ -171,16 +174,33 @@ function Login() {
             </TabsContent>
           </Tabs>
         ) : (
-          <div className="text-center">
+          <div className="text-center ">
             <h1 className="text-2xl font-bold">{fetchProfile()}</h1>
-            <Button className="mt-4 hover:bg-bleu hover:text-blanc" onClick={handleLogout}>
+          
+            <div className="flex space-x-4 justify-center">
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc hover:border-black-700 rounded-full" onClick={() => router.push("/")} >
+              Accueil
+            </Button>
+            
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={() =>router.push("/pages/cart")}>
+              Panier
+            </Button>
+
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
+              Donées personnelles
+            </Button>
+
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
+              Livraison
+            </Button>
+
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
               Se déconnecter
             </Button>
           </div>
+          </div>
         )}
       </main>
-
-      
     </div>
   );
 }

@@ -6,7 +6,10 @@ function Cart() {
     
     return (
         <div>
-            we
+            <p>wewewe</p>
+        
+        <div>
+</div>
         </div>
     )
 }
