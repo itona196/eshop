@@ -19,9 +19,9 @@ function ProductsCard({ title, imgSource, price, description }: ProductsCardProp
   const addWL = () => {
     toast.success(
       <span>
-        Ton produit a été ajouté à ta liste de souhaits !{" "}
+        Ce produit a été ajouté à votre liste de souhaits !{" "}
         <span
-          onClick={() => router.push("/pages/wishlist")}
+          onClick={() => router.push("/pages/cart")}
           className="text-blue-500 underline cursor-pointer"
         >
           Cliquez ici pour accéder à votre liste
@@ -41,7 +41,17 @@ function ProductsCard({ title, imgSource, price, description }: ProductsCardProp
   };
 
   const addTC = () => {
-    toast.success("Ton produit a été ajouté à ton panier", {
+    toast.success(
+    <span>
+      Ce produit à été ajouté au panier !{" "}
+      <span
+        onClick={() => router.push("/pages/cart")}
+        className="text-blue-500 underline cursor-pointer"
+      >
+        Cliquez ici pour accéder à votre panier
+      </span>
+    </span>,
+    {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
