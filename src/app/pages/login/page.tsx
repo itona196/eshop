@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs";
 
+
 function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -176,8 +177,8 @@ function Login() {
               Donées personnelles
             </Button>
 
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
-              Livraison
+            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={() => router.push('/pages/products')}>
+              Liste de souhaits
             </Button>
 
             <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
