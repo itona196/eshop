@@ -1,13 +1,12 @@
-"use client"; 
+"use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
-import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -33,7 +32,6 @@ function Login() {
       }
       users.push({ username, email, password });
       localStorage.setItem("users", JSON.stringify(users));
-      
     }
   };
 
@@ -46,7 +44,6 @@ function Login() {
       if (user) {
         localStorage.setItem("loggedInUser", JSON.stringify(user));
         setIsLoggedIn(true);
-        
       } else {
         alert("Email ou mot de passe incorrect.");
       }
@@ -70,22 +67,35 @@ function Login() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+      {/* Navbar */}
       <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
         <Navbar />
       </header>
 
+      {/* Main Content */}
       <main className="flex-grow flex items-center justify-center mt-20">
         {!isLoggedIn ? (
           <Tabs defaultValue="Login" className="w-[400px]">
+            {/* Tabs Navigation */}
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="Login" className="border border-noir data-[state=active]:bg-bleu data-[state=active]:text-blanc">Se connecter</TabsTrigger>
-              <TabsTrigger value="Register" className="border border-noir data-[state=active]:bg-bleu data-[state=active]:text-blanc">S'enregistrer</TabsTrigger>
+              <TabsTrigger
+                value="Login"
+                className="border border-gray-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-300 data-[state=active]:via-purple-300 data-[state=active]:to-pink-300 data-[state=active]:text-white"
+              >
+                Se connecter
+              </TabsTrigger>
+              <TabsTrigger
+                value="Register"
+                className="border border-gray-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-300 data-[state=active]:via-purple-300 data-[state=active]:to-pink-300 data-[state=active]:text-white"
+              >
+                S'enregistrer
+              </TabsTrigger>
             </TabsList>
 
+            {/* Login Form */}
             <TabsContent value="Login">
-              
-              <Card className="">
+              <Card>
                 <CardHeader>
                   <CardTitle>Se connecter</CardTitle>
                   <CardDescription>Accédez à votre compte</CardDescription>
@@ -110,20 +120,22 @@ function Login() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="hover:bg-bleu hover:text-blanc" onClick={handleLogin}>
+                  <Button
+                    className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                    onClick={handleLogin}
+                  >
                     Se connecter
                   </Button>
                 </CardFooter>
               </Card>
             </TabsContent>
 
+            {/* Register Form */}
             <TabsContent value="Register">
               <Card>
                 <CardHeader>
                   <CardTitle>S'enregistrer</CardTitle>
-                  <CardDescription>
-                    Créez un compte
-                  </CardDescription>
+                  <CardDescription>Créez un compte</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="space-y-1">
@@ -153,7 +165,10 @@ function Login() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="hover:bg-bleu hover:text-blanc" onClick={handleRegister}>
+                  <Button
+                    className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                    onClick={handleRegister}
+                  >
                     S'enregistrer
                   </Button>
                 </CardFooter>
@@ -161,30 +176,28 @@ function Login() {
             </TabsContent>
           </Tabs>
         ) : (
-          <div className="text-center ">
-            <h1 className="text-2xl font-bold">{fetchProfile()}</h1>
-          
-            <div className="flex space-x-4 justify-center">
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc hover:border-black-700 rounded-full" onClick={() => router.push("/")} >
-              Accueil
-            </Button>
-            
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={() =>router.push("/pages/cart")}>
-              Panier
-            </Button>
-
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
-              Donées personnelles
-            </Button>
-
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={() => router.push('/pages/products')}>
-              Liste de souhaits
-            </Button>
-
-            <Button className="w-40 h-12 border border-black mt-4 hover:bg-bleu hover:text-blanc rounded-full" onClick={handleLogout}>
-              Se déconnecter
-            </Button>
-          </div>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">{fetchProfile()}</h1>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                onClick={() => router.push("/")}
+              >
+                Accueil
+              </Button>
+              <Button
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                onClick={() => router.push("/pages/cart")}
+              >
+                Panier
+              </Button>
+              <Button
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                onClick={handleLogout}
+              >
+                Se déconnecter
+              </Button>
+            </div>
           </div>
         )}
       </main>
