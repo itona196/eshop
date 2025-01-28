@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,11 +29,12 @@ function Login() {
     if (typeof window !== "undefined") {
       const users = JSON.parse(localStorage.getItem("users")) || [];
       if (users.some((user) => user.email === email)) {
-        alert("Cet email est déjà utilisé !");
+        toast.error("Cet email est déjà utilisé !", { position: "top-center" });
         return;
       }
       users.push({ username, email, password });
       localStorage.setItem("users", JSON.stringify(users));
+      toast.success("Inscription réussie !", { position: "top-center" });
     }
   };
 
@@ -44,8 +47,9 @@ function Login() {
       if (user) {
         localStorage.setItem("loggedInUser", JSON.stringify(user));
         setIsLoggedIn(true);
+        toast.success("Connexion réussie !", { position: "top-center" });
       } else {
-        alert("Email ou mot de passe incorrect.");
+        toast.error("Email ou mot de passe incorrect.", { position: "top-center" });
       }
     }
   };
@@ -54,7 +58,7 @@ function Login() {
     if (typeof window !== "undefined") {
       localStorage.removeItem("loggedInUser");
       setIsLoggedIn(false);
-      alert("Déconnexion réussie !");
+      toast.success("Déconnexion réussie !", { position: "top-center" });
     }
   };
 
@@ -68,16 +72,14 @@ function Login() {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
-      {/* Navbar */}
+      <ToastContainer />
       <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
         <Navbar />
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow flex items-center justify-center mt-20">
         {!isLoggedIn ? (
           <Tabs defaultValue="Login" className="w-[400px]">
-            {/* Tabs Navigation */}
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger
                 value="Login"
@@ -93,7 +95,6 @@ function Login() {
               </TabsTrigger>
             </TabsList>
 
-            {/* Login Form */}
             <TabsContent value="Login">
               <Card>
                 <CardHeader>
@@ -130,7 +131,6 @@ function Login() {
               </Card>
             </TabsContent>
 
-            {/* Register Form */}
             <TabsContent value="Register">
               <Card>
                 <CardHeader>
@@ -180,19 +180,19 @@ function Login() {
             <h1 className="text-2xl font-bold mb-4">{fetchProfile()}</h1>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
                 onClick={() => router.push("/")}
               >
                 Accueil
               </Button>
               <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
                 onClick={() => router.push("/pages/cart")}
               >
                 Panier
               </Button>
               <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
+                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
                 onClick={handleLogout}
               >
                 Se déconnecter
