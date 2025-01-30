@@ -9,7 +9,7 @@ export default function HomePage() {
 </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Section Hommes */}
+      
         <Link href="/pages/products">
           <Card className="h-[400px] w-full max-w-xs md:max-w-md flex flex-col rounded-lg overflow-hidden shadow-xl bg-white transition-transform transform hover:scale-105 hover:shadow-2xl">
             <CardContent className="flex-1 p-0">
@@ -27,7 +27,7 @@ export default function HomePage() {
           </Card>
         </Link>
 
-        {/* Section Femmes */}
+       
         <Link href="/pages/products">
           <Card className="h-[400px] w-full max-w-xs md:max-w-md flex flex-col rounded-lg overflow-hidden shadow-xl bg-white transition-transform transform hover:scale-105 hover:shadow-2xl">
             <CardContent className="flex-1 p-0">
@@ -45,7 +45,7 @@ export default function HomePage() {
           </Card>
         </Link>
 
-        {/* Section Enfants */}
+       
         <Link href="/pages/products">
           <Card className="h-[400px] w-full max-w-xs md:max-w-md flex flex-col rounded-lg overflow-hidden shadow-xl bg-white transition-transform transform hover:scale-105 hover:shadow-2xl">
             <CardContent className="flex-1 p-0">
