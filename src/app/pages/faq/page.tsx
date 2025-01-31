@@ -18,8 +18,9 @@ function FAQ() {
                 
                 <section className="mb-6">
                     <h2 className="text-xl font-semibold text-accent mb-2">3. Comment suivre ma commande ?</h2>
-                    <p className="text-text">Vous pouvez suivre votre commande en vous connectant à votre compte et en accédant à la section <a href="/suivi" className="text-accent font-bold hover:text-blue-700">Suivi de commande</a>.</p>
+                    <p className="text-text">Dès que nous expédierons votre commande, vous recevrez un e-mail de confirmation contenant un lien de suivi pour suivre l’acheminement de votre colis en temps réel. </p>
                 </section>
+
                 
                 <section className="mb-6">
                     <h2 className="text-xl font-semibold text-accent mb-2">4. Puis-je retourner un article ?</h2>

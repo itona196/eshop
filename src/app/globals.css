@@ -31,4 +31,14 @@
     @apply bg-background text-foreground;
   }
 }
+.custom-toast {
+  background: linear-gradient(to right, #93c5fd, #d8b4fe, #f9a8d4) !important;
+  color: white !important;
+}
+.Toastify__progress-bar {
+  background-color: white !important;
+}
+
+
+
 

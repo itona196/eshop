@@ -5,18 +5,7 @@ import { DialogHeader } from '@/components/ui/dialog'
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from '@radix-ui/react-dialog'
 
 const productsItems = [
-  { 
-    title: "pantalon",    
-    price: 50, 
-    imgSource: "/6d7aea9c334642ffa4c5f09809573e9f.webp", 
-    description: "Ce jean bleu clair à coupe large est confectionné en coton de qualité supérieure, avec une touche d’élasthanne pour plus de confort et de flexibilité. Le délavage subtil lui donne un look décontracté et intemporel, parfait pour un style casual. Fabriqué en Turquie, il combine durabilité et confort. Matière : 98% coton, 2% élasthanne Coupe : Large, taille moyenne Couleur : Bleu clair délavé Entretien : Lavage en machine à 30°C. Ce jean large vous assure à la fois confort et style pour toutes les occasions."
-  },
-  { 
-    title: "pantalon",    
-    price: 50, 
-    imgSource: "/pantalon-bleu.png", 
-    description: "Ce pantalon bleu clair à coupe large est fabriqué en coton de qualité supérieure, avec une légère touche d’élasthanne pour un confort optimal et une grande liberté de mouvement. Son délavage subtil lui confère un style décontracté et intemporel. Fabriqué en Turquie, il allie confort et durabilité. Matière : 98% coton, 2% élasthanne Coupe : Large, taille moyenne Couleur : Bleu clair délavé Entretien : Lavage en machine à 30°C Ce pantalon large est le choix parfait pour un look casual et confortable en toute occasion."
-  },
+
   { 
     title: "pantalon",    
     price: 50, 
@@ -89,12 +78,6 @@ const productsItems = [
     imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
     description: "We"
   },
-  { 
-    title: "collier",     
-    price: 50, 
-    imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
-    description: "We"
-  }
 ];
 
 

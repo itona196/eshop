@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CheckCircle, XCircle } from "lucide-react";
+
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -29,12 +31,19 @@ function Login() {
     if (typeof window !== "undefined") {
       const users = JSON.parse(localStorage.getItem("users")) || [];
       if (users.some((user) => user.email === email)) {
-        toast.error("Cet email est déjà utilisé !", { position: "top-center" });
+        toast.error("Cet email est déjà utilisé !", { position: "bottom-center",
+          icon: <CheckCircle size={24} color="white" />, 
+          progressClassName: "custom-progress-bar",
+          className: "custom-toast",})
+          
         return;
       }
       users.push({ username, email, password });
       localStorage.setItem("users", JSON.stringify(users));
-      toast.success("Inscription réussie !", { position: "top-center" });
+      toast.success("Inscription réussie !", { position: "bottom-center",
+        icon: <CheckCircle size={24} color="white" />, 
+        progressClassName: "custom-progress-bar",
+        className: "custom-toast", });
     }
   };
 
@@ -47,9 +56,18 @@ function Login() {
       if (user) {
         localStorage.setItem("loggedInUser", JSON.stringify(user));
         setIsLoggedIn(true);
-        toast.success("Connexion réussie !", { position: "top-center" });
+        toast.success("Connexion réussie !", {
+          position: "bottom-center",
+          icon: <CheckCircle size={24} color="white" />, 
+          progressClassName: "custom-progress-bar",
+          className: "custom-toast",
+        });
+             
       } else {
-        toast.error("Email ou mot de passe incorrect.", { position: "top-center" });
+        toast.error("Email ou mot de passe incorrect.", {position: "bottom-center",
+          icon: <XCircle size={24} color="white" />, 
+          progressClassName: "custom-progress-bar",
+          className: "custom-toast", });
       }
     }
   };
@@ -58,20 +76,15 @@ function Login() {
     if (typeof window !== "undefined") {
       localStorage.removeItem("loggedInUser");
       setIsLoggedIn(false);
-      toast.success("Déconnexion réussie !", { position: "top-center" });
+      toast.success("Déconnexion réussie !", { position: "bottom-center",
+        icon: <CheckCircle size={24} color="white" />, 
+        progressClassName: "custom-progress-bar",
+        className: "custom-toast", });
     }
-  };
-
-  const fetchProfile = () => {
-    if (typeof window !== "undefined") {
-      const user = JSON.parse(localStorage.getItem("loggedInUser"));
-      return user ? `Bienvenue, ${user.username}` : "Non connecté";
-    }
-    return "Non connecté";
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+    <div className="relative min-h-screen flex flex-col bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100">
       <ToastContainer />
       <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
         <Navbar />
@@ -81,123 +94,62 @@ function Login() {
         {!isLoggedIn ? (
           <Tabs defaultValue="Login" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger
-                value="Login"
-                className="border border-gray-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-300 data-[state=active]:via-purple-300 data-[state=active]:to-pink-300 data-[state=active]:text-white"
-              >
-                Se connecter
-              </TabsTrigger>
-              <TabsTrigger
-                value="Register"
-                className="border border-gray-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-300 data-[state=active]:via-purple-300 data-[state=active]:to-pink-300 data-[state=active]:text-white"
-              >
-                S'enregistrer
-              </TabsTrigger>
+              <TabsTrigger value="Login">Se connecter</TabsTrigger>
+              <TabsTrigger value="Register">S'enregistrer</TabsTrigger>
             </TabsList>
 
             <TabsContent value="Login">
-              <Card>
+              <Card className="h-full flex flex-col">
                 <CardHeader>
                   <CardTitle>Se connecter</CardTitle>
                   <CardDescription>Accédez à votre compte</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-2 flex-grow">
                   <div className="space-y-1">
                     <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                    <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </div>
                   <div className="space-y-1">
                     <Label htmlFor="password">Mot de passe</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
-                    onClick={handleLogin}
-                  >
-                    Se connecter
-                  </Button>
+                  <Button className="w-full text-black hover:bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 border border-black" onClick={handleLogin}>Se connecter</Button>
                 </CardFooter>
               </Card>
             </TabsContent>
 
             <TabsContent value="Register">
-              <Card>
+              <Card className="h-full flex flex-col">
                 <CardHeader>
                   <CardTitle>S'enregistrer</CardTitle>
                   <CardDescription>Créez un compte</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-2 flex-grow">
                   <div className="space-y-1">
                     <Label htmlFor="username">Nom d'utilisateur</Label>
-                    <Input
-                      id="username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
+                    <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                   </div>
                   <div className="space-y-1">
                     <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                    <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </div>
                   <div className="space-y-1">
                     <Label htmlFor="password">Mot de passe</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition"
-                    onClick={handleRegister}
-                  >
-                    S'enregistrer
-                  </Button>
+                  <Button className="w-full text-black hover:bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 border border-black" onClick={handleRegister}>S'enregistrer</Button>
                 </CardFooter>
               </Card>
             </TabsContent>
           </Tabs>
         ) : (
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">{fetchProfile()}</h1>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
-                onClick={() => router.push("/")}
-              >
-                Accueil
-              </Button>
-              <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
-                onClick={() => router.push("/pages/cart")}
-              >
-                Panier
-              </Button>
-              <Button
-                className="w-40 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:opacity-90 transition rounded-full"
-                onClick={handleLogout}
-              >
-                Se déconnecter
-              </Button>
-            </div>
+            <h1 className="text-2xl font-bold mb-4">Bienvenue</h1>
+            <Button onClick={handleLogout}>Se déconnecter</Button>
           </div>
         )}
       </main>

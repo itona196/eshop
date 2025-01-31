@@ -20,8 +20,16 @@ function Retour() {
                 
                 <section className="mb-6">
                     <h2 className="text-xl font-semibold text-accent mb-2">3. Procédure de Retour</h2>
-                    <p className="text-text">Pour initier un retour, contactez-nous à <a href="mailto:" className="text-accent font-bold">retours@loop.com</a> en mentionnant votre numéro de commande et la raison du retour.</p>
-                </section>
+                    <p className="text-text">
+                        Pour initier un retour, veuillez suivre ces étapes :
+                    </p>
+                    <ul className="list-disc list-inside text-text">
+                        <li>Remplissez le formulaire de retour disponible sur votre compte client.</li>
+                        <li>Emballez soigneusement l'article dans son emballage d'origine.</li>
+                        <li>Imprimez et collez l'étiquette de retour fournie après validation de votre demande.</li>
+                        <li>Déposez le colis dans un point relais ou à la poste selon les instructions reçues.</li>
+                    </ul>
+                    </section>
                 
                 <section className="mb-6">
                     <h2 className="text-xl font-semibold text-accent mb-2">4. Frais de Retour</h2>

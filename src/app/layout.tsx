@@ -9,8 +9,9 @@ import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+    
     <html lang="en">
-      <body className="bg-white flex flex-col">
+      <body className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 flex flex-col">
         <CartProvider>
           <header className="fixed top-0 w-full h-16">
             <Navbar />
@@ -24,5 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </CartProvider>
       </body>
     </html>
+    
   );
 }

@@ -22,7 +22,7 @@ function Navbar() {
           <h2 className="text-lg font-extrabold">Menu</h2>
           <button
             onClick={toggleSidebar}
-            className="text-black "
+            className="text "
           >
             ✖
           </button>
@@ -30,28 +30,28 @@ function Navbar() {
         <nav className="flex flex-col space-y-6 mt-6 px-4 ">
           <Link
             href="/"
-            className="py-2 px-3 rounded-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-gray-800 font-semibold hover:bg-gray-100 transition"
+            className="py-2 px-3 rounded-lg font-semibold hover:bg-gray-100 transition"
             onClick={toggleSidebar}
           >
             Accueil
           </Link>
-          <Link
+          <Link 
             href="/pages/products"
-            className="py-2 px-3 rounded-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-gray-800 font-semibold hover:bg-gray-100 transition"
+            className="py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition"
             onClick={toggleSidebar}
           >
             Produits
           </Link>
           <Link
             href="/pages/cart"
-            className="py-2 px-3 rounded-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-gray-800 font-semibold hover:bg-gray-100 transition"
+            className=" py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition"
             onClick={toggleSidebar}
           >
             Panier
           </Link>
           <Link
             href="/pages/login"
-            className="py-2 px-3 rounded-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-gray-800 font-semibold hover:bg-gray-100 transition"
+            className=" py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition"
             onClick={toggleSidebar}
           >
             Mon compte
