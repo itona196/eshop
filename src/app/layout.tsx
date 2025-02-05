@@ -6,10 +6,8 @@ import NavbarFooter from "@/components/ui/navbarFooter";
 import { CartProvider } from "@/components/cartProvider";
 import "./globals.css";
 
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    
     <html lang="en">
       <body className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 flex flex-col">
         <CartProvider>
@@ -25,6 +23,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </CartProvider>
       </body>
     </html>
-    
   );
 }

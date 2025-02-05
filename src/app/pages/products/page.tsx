@@ -59,25 +59,7 @@ const productsItems = [
     price: 10, 
     imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
     description: "We"
-  },
-  { 
-    title: "chaussettes", 
-    price: 10, 
-    imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
-    description: "We"
-  },
-  { 
-    title: "bracelet",    
-    price: 50, 
-    imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
-    description: "We"
-  },
-  { 
-    title: "bague",       
-    price: 60, 
-    imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg", 
-    description: "We"
-  },
+  }
 ];
 
 
