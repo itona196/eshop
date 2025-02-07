@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface CartItem {
   id: string;
@@ -13,7 +13,7 @@ interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: CartItem) => void;
+  addToCart: (item: Omit<CartItem, "quantity">) => void;
   updateQuantity: (id: string, size: string, quantity: number) => void;
   removeItem: (id: string, size: string) => void;
   clearCart: () => void;
@@ -21,38 +21,63 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider = ({ children }: { children: React.ReactNode }) => {
+export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (item: CartItem) => {
+  // Charger le panier depuis localStorage
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Sauvegarder le panier dans localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const addToCart = (item: Omit<CartItem, "quantity">) => {
     setCartItems((prevCart) => {
-      const existingItem = prevCart.find(
-        (cartItem) => cartItem.id === item.id && cartItem.size === item.size
+      // Cherche un produit identique (même id + size)
+      const existingIndex = prevCart.findIndex(
+        (p) => p.id === item.id && p.size === item.size
       );
 
-      if (existingItem) {
-        return prevCart.map((cartItem) =>
-          cartItem.id === item.id && cartItem.size === item.size
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
+      if (existingIndex !== -1) {
+        // On clone le panier pour éviter toute mutation
+        const updated = [...prevCart];
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: updated[existingIndex].quantity + 1,
+        };
+        return updated;
       }
 
-      return [...prevCart, { ...item, quantity: 1 }];
+      // Ajout d'un nouveau produit
+      return [
+        ...prevCart,
+        {
+          ...item,
+          quantity: 1,
+        },
+      ];
     });
   };
 
   const updateQuantity = (id: string, size: string, quantity: number) => {
     setCartItems((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id && item.size === size ? { ...item, quantity } : item
+      prevCart.map((product) =>
+        product.id === id && product.size === size
+          ? { ...product, quantity }
+          : product
       )
     );
   };
 
   const removeItem = (id: string, size: string) => {
     setCartItems((prevCart) =>
-      prevCart.filter((item) => !(item.id === id && item.size === size))
+      prevCart.filter((product) => !(product.id === id && product.size === size))
     );
   };
 
@@ -61,16 +86,24 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeItem, clearCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        updateQuantity,
+        removeItem,
+        clearCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
+export function useCart() {
+  const ctx = useContext(CartContext);
+  if (!ctx) {
     throw new Error("useCart must be used within a CartProvider");
   }
-  return context;
-};
+  return ctx;
+}

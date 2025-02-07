@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useCart } from "@/components/cartProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogTrigger,
@@ -17,28 +17,25 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Star, StarHalf, ChevronsDown } from "lucide-react";
 
-interface ProductsCardProps {
-  id: string;
-  title: string;
-  imgSource: string;
-  price: number;
-  description: string;
-}
-
+// ----- Fonctions auxiliaires pour la notation (facultatif) -----
 function getRandomRating() {
   const possibleRatings = [3, 3.5, 4, 4.5, 5];
   return possibleRatings[Math.floor(Math.random() * possibleRatings.length)];
 }
 
 function getRandomRatingCount() {
-  return Math.floor(Math.random() * 701) + 300;
+  return Math.floor(Math.random() * 701) + 300; // Entre 300 et 1000 avis
 }
 
 function renderHalfStar(index: number) {
   return (
     <div key={index} className="relative w-8 h-8">
       <Star className="absolute top-0 left-0 text-gray-300 w-8 h-8" />
-      <StarHalf fill="currentColor" stroke="none" className="absolute top-0 left-0 text-yellow-400 w-8 h-8" />
+      <StarHalf
+        fill="currentColor"
+        stroke="none"
+        className="absolute top-0 left-0 text-yellow-400 w-8 h-8"
+      />
     </div>
   );
 }
@@ -63,50 +60,68 @@ function renderStar(index: number, rating: number) {
   }
 }
 
-function ProductsCard({ id, title, imgSource, price, description }: ProductsCardProps) {
-  const { addToCart } = useCart();
+// ----- Interface des props -----
+interface ProductsCardProps {
+  id: string;
+  title: string;
+  imgSource: string;
+  price: number;
+  description: string;
+}
+
+function ProductsCard({
+  id,
+  title,
+  imgSource,
+  price,
+  description,
+}: ProductsCardProps) {
   const router = useRouter();
+  const { addToCart } = useCart();
+
+  // Taille sélectionnée
   const [selectedSize, setSelectedSize] = useState<string>("M");
+
+  // Notation aléatoire (facultatif)
   const [randomRating] = useState<number>(() => getRandomRating());
   const [ratingCount] = useState<number>(() => getRandomRatingCount());
+  const globalStars = [1, 2, 3, 4, 5].map((value) =>
+    renderStar(value, randomRating)
+  );
 
+  // Ajout au panier
   const addToCartHandler = () => {
     if (!selectedSize) {
-      toast.error("Veuillez sélectionner une taille !", {
-      //  className: "custom-toast",
-      });
+      toast.error("Veuillez sélectionner une taille !");
       return;
     }
 
     addToCart({
-      id,
+      id,         // important: identifiant unique du produit
       title,
       imgSource,
       price,
-      quantity: 1,
       size: selectedSize,
+      // quantity ne doit pas être passé ici, le CartProvider le fixera à 1 s'il est nouveau
     });
 
     toast.success(
       <span>
-        Le produit a été ajouté à votre panier.{' '}
+        Le produit a été ajouté à votre panier.{" "}
         <span
           onClick={() => router.push("/pages/cart")}
           className="underline cursor-pointer"
         >
           Cliquez ici
-        </span>
-        {' '}pour consulter votre panier.
+        </span>{" "}
+        pour consulter votre panier.
       </span>,
       {
-       // className: "custom-toast",
         position: "top-center",
         autoClose: 3000,
       }
     );
   };
-
-  const globalStars = [1, 2, 3, 4, 5].map((starValue) => renderStar(starValue, randomRating));
 
   return (
     <motion.div
@@ -118,8 +133,11 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
       <Card className="flex flex-col h-full border-0 rounded-lg">
         <Dialog>
           <DialogTrigger asChild>
-            <motion.div whileHover={{ scale: 1.02 }} className="cursor-pointer flex flex-col h-full w-full">
-              <CardContent className="flex-1 w-full overflow-hidden p-0 flex items-center justify-center">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="cursor-pointer flex flex-col h-full w-full"
+            >
+              <CardContent className="flex-1 w-full p-0 flex items-center justify-center">
                 <motion.img
                   src={imgSource}
                   alt={title}
@@ -135,9 +153,8 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
               </CardFooter>
             </motion.div>
           </DialogTrigger>
-          <DialogContent
-            className="fixed inset-0 p-8 flex items-center justify-center z-50 w-full h-full overflow-auto bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100"
-          >
+
+          <DialogContent className="fixed inset-0 p-8 flex items-center justify-center z-50 w-full h-full overflow-auto bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100">
             <div className="relative w-full max-w-4xl bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 rounded-xl shadow-xl p-8">
               <DialogClose asChild>
                 <motion.button
@@ -148,6 +165,7 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
                   ✖
                 </motion.button>
               </DialogClose>
+
               <div className="flex flex-col md:flex-row gap-6">
                 <motion.div
                   className="w-full md:w-1/2 flex justify-center items-center"
@@ -161,6 +179,7 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
                     className="w-96 h-96 object-cover rounded-lg shadow-md"
                   />
                 </motion.div>
+
                 <div className="w-full md:w-1/2 flex flex-col justify-between">
                   <DialogTitle className="text-3xl font-bold text-gray-900 mb-2">
                     {title}
@@ -168,16 +187,26 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
                   <DialogDescription className="text-md text-gray-700 leading-relaxed mb-4">
                     {description}
                   </DialogDescription>
-                  <p className="text-lg font-bold text-gray-900 mb-4">Prix : CHF {price}</p>
+                  <p className="text-lg font-bold text-gray-900 mb-4">
+                    Prix : CHF {price}
+                  </p>
+
+                  {/* Note aléatoire */}
                   <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-1 flex items-center gap-2">
                       Note globale :
-                      <span className="text-sm text-gray-600">({ratingCount} avis)</span>
+                      <span className="text-sm text-gray-600">
+                        ({ratingCount} avis)
+                      </span>
                     </label>
                     <div className="flex items-center gap-1">{globalStars}</div>
                   </div>
+
+                  {/* Sélection de la taille */}
                   <div>
-                    <label className="block text-gray-700 font-semibold mb-2">Taille :</label>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Taille :
+                    </label>
                     <div className="relative">
                       <select
                         className="w-full appearance-none p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100"
@@ -194,12 +223,14 @@ function ProductsCard({ id, title, imgSource, price, description }: ProductsCard
                       </span>
                     </div>
                   </div>
+
+                  {/* Boutons d'action */}
                   <div className="mt-6 flex flex-col md:flex-row gap-4">
                     <button
                       className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white transition-all rounded-full shadow"
-                      onClick={() => toast.success("Ajouté à la liste de souhaits !", {
-                        className: "custom-toast",
-                      })}
+                      onClick={() =>
+                        toast.success("Ajouté à la liste de souhaits !")
+                      }
                     >
                       ❤️ Ajouter à la WishList
                     </button>
