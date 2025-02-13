@@ -39,13 +39,15 @@ function Navbar() {
           <Link href="/pages/cart" className="py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition" onClick={toggleSidebar}>
             Panier
           </Link>
+          <Link href="/pages/wishlist" className="py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition" onClick={toggleSidebar}>
+            Liste de souhaits
+          </Link>
           <Link href="/pages/login" className="py-2 px-3 rounded-lg text-gray-800 font-semibold hover:bg-gray-100 transition" onClick={toggleSidebar}>
             Mon compte
           </Link>
         </nav>
       </div>
 
-      {/* Barre de navigation */}
       <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-6 w-full h-16 flex justify-between items-center px-6 shadow-md fixed top-0 left-0 z-40">
         
         {/* Bouton sidebar */}

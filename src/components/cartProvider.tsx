@@ -24,7 +24,6 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Charger le panier depuis localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
@@ -32,20 +31,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Sauvegarder le panier dans localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
     setCartItems((prevCart) => {
-      // Cherche un produit identique (même id + size)
       const existingIndex = prevCart.findIndex(
         (p) => p.id === item.id && p.size === item.size
       );
 
       if (existingIndex !== -1) {
-        // On clone le panier pour éviter toute mutation
+
         const updated = [...prevCart];
         updated[existingIndex] = {
           ...updated[existingIndex],
@@ -54,7 +51,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return updated;
       }
 
-      // Ajout d'un nouveau produit
       return [
         ...prevCart,
         {

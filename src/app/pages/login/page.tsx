@@ -124,7 +124,7 @@ function Login() {
             </TabsContent>
           </Tabs>
         ) : (
-          <Card className="w-96 bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 shadow-lg rounded-lg p-6">
+          <Card className="w-96 bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 shadow-lg rounded-lg p-6 ">
             <CardHeader>
               <User size={48} className="mx-auto text-blue-500" />
               <CardTitle className="text-center text-2xl font-bold">Mon compte</CardTitle>
