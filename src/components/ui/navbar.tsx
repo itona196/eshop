@@ -1,23 +1,22 @@
 "use client";
 import Link from "next/link";
-import { AlignCenter, User, ShoppingCart } from "lucide-react";
+import { AlignCenter, User, ShoppingCart, Heart } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/components/cartProvider";
+import { useWishlist } from "./wishlistProvider";
 
 function Navbar() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { cartItems } = useCart();
-
-  // Calcul du nombre total d'articles dans le panier
+  const { wishlistItems} = useWishlist();
   const totalCartItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
+  const totalWishlistItems = wishlistItems.length;
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
   };
 
   return (
     <div>
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-48 bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-6 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -48,39 +47,49 @@ function Navbar() {
         </nav>
       </div>
 
-      <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-6 w-full h-16 flex justify-between items-center px-6 shadow-md fixed top-0 left-0 z-40">
-        
-        {/* Bouton sidebar */}
-        <button onClick={toggleSidebar} className="text-gray-700 hover:text-black">
-          <AlignCenter className="w-6 h-6" />
-        </button>
+      <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 w-full h-16 grid grid-cols-3 items-center px-4 shadow-md fixed top-0 left-0 z-40">
+  
+  {/* Bouton sidebar (colonne 1) */}
+  <div className="flex items-center">
+    <button onClick={toggleSidebar} className="text-gray-700 hover:text-black">
+      <AlignCenter className="w-5 h-5" />
+    </button>
+  </div>
 
-        {/* Logo */}
-        <div className="flex items-center justify-center h-16">
-          <Link href="/" className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:scale-105 transform transition duration-300">
-            Loop
-          </Link>
-        </div>
+  {/* Logo (colonne 2 - centré) */}
+  <div className="flex justify-center items-center">
+    <Link href="/" className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:scale-105 transform transition duration-300">
+      Loop
+    </Link>
+  </div>
 
-        {/* Icônes à droite */}
-        <div className="flex space-x-4 items-center">
+  {/* Icônes (colonne 3) */}
+  <div className="flex justify-end space-x-4 items-center">
+    <Link href="/pages/cart" className="relative">
+      <ShoppingCart className="w-5 h-5 text-gray-700 hover:text-black" />
+      {totalCartItems > 0 && (
+        <span className="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+          {totalCartItems}
+        </span>
+      )}
+    </Link>
+    <Link href="/pages/wishlist" className="relative">
+      <Heart className="w-5 h-5 text-gray-700 hover:text-black"/>
+      {totalWishlistItems > 0 && (
+        <span className="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+          {totalWishlistItems}
+        </span>
+      )}
+    </Link>
+    <Link href="/pages/login">
+      <User className="w-5 h-5 text-gray-700 hover:text-black" />
+    </Link>
+  </div>
+</div>
 
-          {/* Icône du panier avec le nombre dynamique d'articles */}
-          <Link href="/pages/cart" className="relative">
-            <ShoppingCart className="w-6 h-6 text-gray-700 hover:text-black" />
-            {totalCartItems > 0 && (
-              <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {totalCartItems}
-              </span>
-            )}
-          </Link>
 
-          {/* Icône utilisateur */}
-          <Link href="/pages/login">
-            <User className="w-6 h-6 text-gray-700 hover:text-black" />
-          </Link>
-        </div>
-      </div>
+
+
     </div>
   );
 }

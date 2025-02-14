@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useCart } from "@/components/cartProvider";
+import { useWishlist } from "@/components/ui/wishlistProvider"; // ✅ Import ajouté
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -27,7 +28,7 @@ function getRandomRatingCount() {
   return Math.floor(Math.random() * 701) + 300; // Entre 300 et 1000 avis
 }
 
-function renderHalfStar(index: number) {
+function renderHalfStar(index) {
   return (
     <div key={index} className="relative w-8 h-8">
       <Star className="absolute top-0 left-0 text-gray-300 w-8 h-8" />
@@ -40,7 +41,7 @@ function renderHalfStar(index: number) {
   );
 }
 
-function renderStar(index: number, rating: number) {
+function renderStar(index, rating) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
@@ -78,6 +79,7 @@ function ProductsCard({
 }: ProductsCardProps) {
   const router = useRouter();
   const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist(); // ✅ Ajout du hook wishlist
 
   // Taille sélectionnée
   const [selectedSize, setSelectedSize] = useState<string>("M");
@@ -89,27 +91,40 @@ function ProductsCard({
     renderStar(value, randomRating)
   );
 
-  // Ajout au panier
+  // ----- Ajout à la wishlist -----
+  const addToWishlistHandler = () => {
+    if (!selectedSize) {
+      toast.error("Veuillez sélectionner une taille !");
+      return;
+    }
+    addToWishlist({
+      id,
+      title,
+      imgSource,
+      price,
+      size: selectedSize,
+    });
+    toast.success("Ajouté à la wishlist !");
+  };
+
+  // ----- Ajout au panier -----
   const addToCartHandler = () => {
     if (!selectedSize) {
       toast.error("Veuillez sélectionner une taille !");
       return;
     }
-
     addToCart({
-      id,         // important: identifiant unique du produit
+      id,
       title,
       imgSource,
       price,
       size: selectedSize,
-      // quantity ne doit pas être passé ici, le CartProvider le fixera à 1 s'il est nouveau
     });
-
     toast.success(
       <span>
         Le produit a été ajouté à votre panier.{" "}
         <span
-          onClick={() => router.push("/pages/cart")}
+          onClick={() => router.push("/cart")} // ✅ Correction de la route
           className="underline cursor-pointer"
         >
           Cliquez ici
@@ -228,9 +243,7 @@ function ProductsCard({
                   <div className="mt-6 flex flex-col md:flex-row gap-4">
                     <button
                       className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white transition-all rounded-full shadow"
-                      onClick={() =>
-                        toast.success("Ajouté à la liste de souhaits !")
-                      }
+                      onClick={addToWishlistHandler}
                     >
                       ❤️ Ajouter à la WishList
                     </button>

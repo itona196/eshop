@@ -2,16 +2,7 @@
 
 import React from "react";
 import ProductsCard from "@/components/productsCard";
-import { DialogHeader } from "@/components/ui/dialog";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@radix-ui/react-dialog";
 
-// Tableau de produits avec un champ id unique pour chacun
 const productsItems = [
   {
     id: "pantalon-chino-1",
