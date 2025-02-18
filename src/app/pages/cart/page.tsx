@@ -68,7 +68,13 @@ function Cart() {
       <h1 className="text-4xl font-extrabold mb-6 text-center">Panier</h1>
 
       {cartItems.length === 0 ? (
-        <p className="text-center text-lg font-medium">Votre panier est vide.</p>
+        // ✅ On ne modifie QUE le message, en le centrant verticalement/horizontalement
+        <p 
+          className="text-center text-lg font-medium" 
+          style={{ marginTop: "40vh" }}
+        >
+          Votre panier est vide.
+        </p>
       ) : (
         <div className="max-w-4xl mx-auto grid gap-6">
           {cartItems.map((item) => (
@@ -141,7 +147,7 @@ function Cart() {
 
           <button
             onClick={() => {
-              router.push("/checkout");
+              router.push("/pages/checkout");
               showToast("Redirection vers le paiement...", "info");
             }}
             className="mt-4 ml-4 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"

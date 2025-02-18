@@ -134,11 +134,9 @@ function Login() {
               
 
               <Button className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:bg--500 hover:text-black border border-black" onClick={() => router.push("/pages/userProfil")}> Informations personnelles </Button>
-
-            </CardContent>
-            <CardFooter>
+              <Button className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:bg--500 hover:text-black border border-black" onClick={() => router.push("/pages/orderHistory")}> Historique de commande </Button>
               <Button className="w-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 text-white hover:bg--500 hover:text-black border border-black" onClick={handleLogout}>Se déconnecter</Button>
-            </CardFooter>
+            </CardContent>
           </Card>
         )}
       </main>

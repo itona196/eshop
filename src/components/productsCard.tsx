@@ -1,10 +1,10 @@
-"use client";
+"use client"; // Obligatoire en haut pour activer le rendu côté client dans Next.js (app router)
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useCart } from "@/components/cartProvider";
-import { useWishlist } from "@/components/ui/wishlistProvider"; // ✅ Import ajouté
+import { useWishlist } from "@/components/ui/wishlistProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -18,7 +18,9 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Star, StarHalf, ChevronsDown } from "lucide-react";
 
-// ----- Fonctions auxiliaires pour la notation (facultatif) -----
+/* ------------------------------------------------------------------
+   Fonctions auxiliaires pour la notation
+--------------------------------------------------------------------- */
 function getRandomRating() {
   const possibleRatings = [3, 3.5, 4, 4.5, 5];
   return possibleRatings[Math.floor(Math.random() * possibleRatings.length)];
@@ -28,7 +30,7 @@ function getRandomRatingCount() {
   return Math.floor(Math.random() * 701) + 300; // Entre 300 et 1000 avis
 }
 
-function renderHalfStar(index) {
+function renderHalfStar(index: number) {
   return (
     <div key={index} className="relative w-8 h-8">
       <Star className="absolute top-0 left-0 text-gray-300 w-8 h-8" />
@@ -41,7 +43,7 @@ function renderHalfStar(index) {
   );
 }
 
-function renderStar(index, rating) {
+function renderStar(index: number, rating: number) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
@@ -61,7 +63,9 @@ function renderStar(index, rating) {
   }
 }
 
-// ----- Interface des props -----
+/* ------------------------------------------------------------------
+   Interface des props du composant
+--------------------------------------------------------------------- */
 interface ProductsCardProps {
   id: string;
   title: string;
@@ -70,6 +74,9 @@ interface ProductsCardProps {
   description: string;
 }
 
+/* ------------------------------------------------------------------
+   Composant principal
+--------------------------------------------------------------------- */
 function ProductsCard({
   id,
   title,
@@ -78,10 +85,12 @@ function ProductsCard({
   description,
 }: ProductsCardProps) {
   const router = useRouter();
-  const { addToCart } = useCart();
-  const { addToWishlist } = useWishlist(); // ✅ Ajout du hook wishlist
 
-  // Taille sélectionnée
+  // Hooks personnalisés pour le panier et la wishlist
+  const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
+
+  // État local pour la taille sélectionnée
   const [selectedSize, setSelectedSize] = useState<string>("M");
 
   // Notation aléatoire (facultatif)
@@ -91,12 +100,17 @@ function ProductsCard({
     renderStar(value, randomRating)
   );
 
-  // ----- Ajout à la wishlist -----
+  /* ------------------------------------------------------------------
+     Gestion de la Wishlist
+  --------------------------------------------------------------------- */
   const addToWishlistHandler = () => {
     if (!selectedSize) {
+      // Si aucune taille n'est sélectionnée, on notifie avec toast.error
       toast.error("Veuillez sélectionner une taille !");
       return;
     }
+
+    // Ajout dans la wishlist + notification
     addToWishlist({
       id,
       title,
@@ -104,15 +118,37 @@ function ProductsCard({
       price,
       size: selectedSize,
     });
-    toast.success("Ajouté à la wishlist !");
+
+    // Ici on peut choisir le type de notification souhaité :
+    // toast.success, toast.info, toast.warn, toast.error
+    toast.success(
+      <span>
+        Le produit a été ajouté à votre liste de souhaits.{" "}
+        <span
+          onClick={() => router.push("/pages/wishlist")}
+          className="underline cursor-pointer"
+        >
+          Cliquez ici
+        </span>{" "}
+        pour consulter votre panier.
+      </span>,
+      {
+        position: "top-center",
+        autoClose: 3000,
+      }
+    );
   };
 
-  // ----- Ajout au panier -----
+  /* ------------------------------------------------------------------
+     Gestion du Panier
+  --------------------------------------------------------------------- */
   const addToCartHandler = () => {
     if (!selectedSize) {
       toast.error("Veuillez sélectionner une taille !");
       return;
     }
+
+    // Ajout au panier
     addToCart({
       id,
       title,
@@ -120,11 +156,13 @@ function ProductsCard({
       price,
       size: selectedSize,
     });
+
+    // Notification de réussite avec un lien
     toast.success(
       <span>
         Le produit a été ajouté à votre panier.{" "}
         <span
-          onClick={() => router.push("/cart")} // ✅ Correction de la route
+          onClick={() => router.push("/pages/cart")}
           className="underline cursor-pointer"
         >
           Cliquez ici
@@ -260,6 +298,12 @@ function ProductsCard({
           </DialogContent>
         </Dialog>
       </Card>
+
+      {/* 
+         IMPORTANT :
+         Le ToastContainer doit se trouver dans ton arbre de rendu 
+         (une seule fois par page ou layout, pas forcément dans le composant).
+      */}
       <ToastContainer />
     </motion.div>
   );

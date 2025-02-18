@@ -82,18 +82,24 @@ export default function WishlistPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-6 text-black">
       <h1 className="text-4xl font-extrabold mb-6 text-center">Ma Wishlist</h1>
+
       {wishlistItems.length === 0 ? (
-        <p className="text-center text-lg font-medium">Votre wishlist est vide.</p>
+        // ✅ On ne centre QUE le texte du message
+        <div className="flex items-center justify-center" style={{ height: "60vh" }}>
+          <p className="text-center text-lg font-medium">Votre wishlist est vide.</p>
+        </div>
       ) : (
         <div className="max-w-4xl mx-auto grid gap-6">
           {wishlistItems.map((item) => (
-            <div key={item.id} className="flex justify-between p-4 rounded-xl shadow-md bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100">
+            <div
+              key={item.id}
+              className="flex justify-between p-4 rounded-xl shadow-md bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100"
+            >
               <div className="flex items-center gap-4">
                 <img src={item.imgSource} alt={item.title} className="w-20 h-20 rounded-lg" />
                 <div>
                   <h2 className="text-lg font-semibold">{item.title}</h2>
                   <p className="font-bold text-blue-600">CHF {item.price}</p>
-                  
                 </div>
               </div>
               <div className="flex items-center gap-4">
