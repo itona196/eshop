@@ -17,7 +17,7 @@ function APropos() {
                 <section className="mb-6">
                     <h2 className="text-xl font-semibold text-accent mb-2">Notre Histoire</h2>
                     <p className="text-text">
-                        Loop a été fondé en 2024 à Genève, en France, avec la volonté de révolutionner l’industrie de la mode. Nous avons commencé en tant que petite marque indépendante, proposant des pièces conçues avec des matériaux recyclés et des processus de fabrication éco-responsables.
+                        Loop a été fondé en 2024 à Genève, en Suisse, avec la volonté de révolutionner l’industrie de la mode. Nous avons commencé en tant que petite marque indépendante, proposant des pièces conçues avec des matériaux recyclés et des processus de fabrication éco-responsables.
                         Depuis notre création, nous avons élargi notre gamme de produits et nous sommes implantés dans plusieurs pays d’Europe. 
                         Notre siège social est situé au cœur de Genève, où nos équipes de designers et de créateurs travaillent chaque jour pour proposer des collections innovantes et respectueuses de l’environnement.
                     </p>

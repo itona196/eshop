@@ -1,4 +1,4 @@
-"use client"; // Obligatoire en haut pour activer le rendu côté client dans Next.js (app router)
+"use client"; 
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,16 +18,13 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Star, StarHalf, ChevronsDown } from "lucide-react";
 
-/* ------------------------------------------------------------------
-   Fonctions auxiliaires pour la notation
---------------------------------------------------------------------- */
 function getRandomRating() {
   const possibleRatings = [3, 3.5, 4, 4.5, 5];
   return possibleRatings[Math.floor(Math.random() * possibleRatings.length)];
 }
 
 function getRandomRatingCount() {
-  return Math.floor(Math.random() * 701) + 300; // Entre 300 et 1000 avis
+  return Math.floor(Math.random() * 701) + 300; 
 }
 
 function renderHalfStar(index: number) {
@@ -63,9 +60,6 @@ function renderStar(index: number, rating: number) {
   }
 }
 
-/* ------------------------------------------------------------------
-   Interface des props du composant
---------------------------------------------------------------------- */
 interface ProductsCardProps {
   id: string;
   title: string;
@@ -74,9 +68,6 @@ interface ProductsCardProps {
   description: string;
 }
 
-/* ------------------------------------------------------------------
-   Composant principal
---------------------------------------------------------------------- */
 function ProductsCard({
   id,
   title,
@@ -85,32 +76,21 @@ function ProductsCard({
   description,
 }: ProductsCardProps) {
   const router = useRouter();
-
-  // Hooks personnalisés pour le panier et la wishlist
   const { addToCart } = useCart();
   const { addToWishlist } = useWishlist();
-
-  // État local pour la taille sélectionnée
   const [selectedSize, setSelectedSize] = useState<string>("M");
-
-  // Notation aléatoire (facultatif)
   const [randomRating] = useState<number>(() => getRandomRating());
   const [ratingCount] = useState<number>(() => getRandomRatingCount());
   const globalStars = [1, 2, 3, 4, 5].map((value) =>
     renderStar(value, randomRating)
   );
 
-  /* ------------------------------------------------------------------
-     Gestion de la Wishlist
-  --------------------------------------------------------------------- */
   const addToWishlistHandler = () => {
     if (!selectedSize) {
-      // Si aucune taille n'est sélectionnée, on notifie avec toast.error
       toast.error("Veuillez sélectionner une taille !");
       return;
     }
 
-    // Ajout dans la wishlist + notification
     addToWishlist({
       id,
       title,
@@ -119,15 +99,10 @@ function ProductsCard({
       size: selectedSize,
     });
 
-    // Ici on peut choisir le type de notification souhaité :
-    // toast.success, toast.info, toast.warn, toast.error
     toast.success(
       <span>
         Le produit a été ajouté à votre liste de souhaits.{" "}
-        <span
-          onClick={() => router.push("/pages/wishlist")}
-          className="underline cursor-pointer"
-        >
+        <span onClick={() => router.push("/pages/wishlist")} className="underline cursor-pointer">
           Cliquez ici
         </span>{" "}
         pour consulter votre panier.
@@ -139,16 +114,12 @@ function ProductsCard({
     );
   };
 
-  /* ------------------------------------------------------------------
-     Gestion du Panier
-  --------------------------------------------------------------------- */
   const addToCartHandler = () => {
     if (!selectedSize) {
       toast.error("Veuillez sélectionner une taille !");
       return;
     }
 
-    // Ajout au panier
     addToCart({
       id,
       title,
@@ -157,14 +128,11 @@ function ProductsCard({
       size: selectedSize,
     });
 
-    // Notification de réussite avec un lien
     toast.success(
       <span>
         Le produit a été ajouté à votre panier.{" "}
         <span
-          onClick={() => router.push("/pages/cart")}
-          className="underline cursor-pointer"
-        >
+          onClick={() => router.push("/pages/cart")} className="underline cursor-pointer">
           Cliquez ici
         </span>{" "}
         pour consulter votre panier.
@@ -243,8 +211,6 @@ function ProductsCard({
                   <p className="text-lg font-bold text-gray-900 mb-4">
                     Prix : CHF {price}
                   </p>
-
-                  {/* Note aléatoire */}
                   <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-1 flex items-center gap-2">
                       Note globale :
@@ -254,8 +220,6 @@ function ProductsCard({
                     </label>
                     <div className="flex items-center gap-1">{globalStars}</div>
                   </div>
-
-                  {/* Sélection de la taille */}
                   <div>
                     <label className="block text-gray-700 font-semibold mb-2">
                       Taille :
@@ -276,34 +240,26 @@ function ProductsCard({
                       </span>
                     </div>
                   </div>
+      <div className="mt-6 flex flex-col md:flex-row gap-4">
+        <button
+          className="w-full md:flex-1 px-6 py-3 text-black border border-black rounded-full shadow transition-all bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 hover:from-purple-300 hover:via-blue-300 hover:to-pink-300"
+          onClick={addToWishlistHandler}>
+          ❤️ Ajouter à la liste de souhaits
+        </button>
 
-                  {/* Boutons d'action */}
-                  <div className="mt-6 flex flex-col md:flex-row gap-4">
-                    <button
-                      className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white transition-all rounded-full shadow"
-                      onClick={addToWishlistHandler}
-                    >
-                      ❤️ Ajouter à la WishList
-                    </button>
-                    <button
-                      className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white transition-all rounded-full shadow"
-                      onClick={addToCartHandler}
-                    >
-                      🛒 Ajouter au Panier
-                    </button>
-                  </div>
+         <button
+          className="w-full md:flex-1 px-6 py-3 text-black border border-black rounded-full shadow transition-all bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 hover:from-purple-300 hover:via-blue-300 hover:to-pink-300"
+          onClick={addToCartHandler}>
+          🛒 Ajouter au Panier
+          </button>
+        </div>
+
                 </div>
               </div>
             </div>
           </DialogContent>
         </Dialog>
       </Card>
-
-      {/* 
-         IMPORTANT :
-         Le ToastContainer doit se trouver dans ton arbre de rendu 
-         (une seule fois par page ou layout, pas forcément dans le composant).
-      */}
       <ToastContainer />
     </motion.div>
   );

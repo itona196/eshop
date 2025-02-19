@@ -26,13 +26,7 @@ function Checkout() {
     zip: "",
     country: "",
   });
-
-  // On va stocker non plus juste un string (ex: "Poste"),
-  // mais un *objet* représentant l'option de livraison choisie
-  // Ex : { id: "poste", name: "La Poste", cost: 10, deliveryTime: "10-14 jours ouvrables" }
   const [deliveryMethod, setDeliveryMethod] = useState(null);
-
-  // Définition des différentes options de livraison
   const shippingOptions = [
     {
       id: "poste",
@@ -57,7 +51,6 @@ function Checkout() {
     },
   ];
 
-  // Vérification de l'adresse (tous champs obligatoires + zip numérique)
   const validateAddress = (addr) => {
     if (
       !addr.name.trim() ||
@@ -76,14 +69,12 @@ function Checkout() {
     return true;
   };
 
-  // Permet de revenir à l'étape précédente
   const handlePreviousStep = () => {
     if (step > 1) {
       setStep(step - 1);
     }
   };
 
-  // Vérifie si l'utilisateur est connecté (via localStorage par ex.)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -91,21 +82,16 @@ function Checkout() {
     }
   }, []);
 
-  // Navigation vers l'étape suivante
   const handleNextStep = () => {
-    // Étape 1 : si pas connecté et veut continuer en se connectant
     if (step === 1 && !isLoggedIn) {
-      // Redirige vers la page login avec un next param
       router.push("/pages/login?next=/checkout?step=2");
       return;
     }
 
-    // Étape 2 : valider l'adresse
     if (step === 2) {
       if (!validateAddress(address)) return;
     }
 
-    // Étape 3 : vérifier qu'un mode de livraison est choisi
     if (step === 3 && !deliveryMethod) {
       toast.error("Veuillez choisir un mode de livraison.");
       return;
@@ -114,23 +100,17 @@ function Checkout() {
     setStep(step + 1);
   };
 
-  // Affiche la zone de paiement
   const handlePayment = () => {
     setShowPayment(true);
   };
 
-  // Calcul du total des articles
   const itemsTotal = cartItems
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
     .toFixed(2);
 
-  // Si un mode de livraison est sélectionné, on ajoute le cost
   const shippingCost = deliveryMethod ? deliveryMethod.cost : 0;
-
-  // Total général (articles + frais de livraison)
   const grandTotal = (parseFloat(itemsTotal) + shippingCost).toFixed(2);
 
-  // Si on arrive sur /checkout?step=2 (après login), on lit le paramètre
   useEffect(() => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
@@ -145,7 +125,6 @@ function Checkout() {
     <>
       <ToastContainer />
       <div className="min-h-screen py-8 px-4 flex flex-col items-center">
-        {/* STEP INDICATOR */}
         <div className="flex items-center justify-evenly max-w-md w-full mb-8">
           {["Connexion", "Adresse", "Livraison", "Paiement"].map((label, idx) => {
             const circleStep = idx + 1;
@@ -173,14 +152,12 @@ function Checkout() {
           })}
         </div>
 
-        {/* SI LE PANIER EST VIDE */}
         {cartItems.length === 0 ? (
           <p className="text-center text-lg text-gray-700">
             Votre panier est vide.
           </p>
         ) : (
           <div className="w-full max-w-4xl bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-8 rounded-xl shadow-xl">
-            {/* ÉTAPE 1 : Choix entre Se connecter ou Invité */}
             {step === 1 && (
               <div className="text-center space-y-6">
                 {!isLoggedIn ? (
@@ -210,8 +187,6 @@ function Checkout() {
                 )}
               </div>
             )}
-
-            {/* ÉTAPE 2 : Adresse */}
             {step === 2 && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-semibold text-gray-900">
@@ -264,8 +239,6 @@ function Checkout() {
                     }
                   />
                 </div>
-
-                {/* BOUTONS PRECEDENT / SUIVANT */}
                 <div className="flex justify-between">
                   {step > 1 && (
                     <button
@@ -281,8 +254,6 @@ function Checkout() {
                 </div>
               </div>
             )}
-
-            {/* ÉTAPE 3 : Choix de la livraison */}
             {step === 3 && (
               <div className="text-center space-y-6">
                 <h2 className="text-2xl font-semibold text-gray-900">
@@ -303,8 +274,6 @@ function Checkout() {
                     </button>
                   ))}
                 </div>
-
-                {/* BOUTONS PRECEDENT / SUIVANT */}
                 <div className="flex justify-between">
                   {step > 1 && (
                     <button
@@ -320,8 +289,6 @@ function Checkout() {
                 </div>
               </div>
             )}
-
-            {/* ÉTAPE 4 : Récap final */}
             {step === 4 && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-semibold text-gray-900">
@@ -344,7 +311,6 @@ function Checkout() {
                   </p>
                 </div>
 
-                {/* Tableau des articles */}
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-left bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100">
                     <thead className="border-b">
@@ -386,7 +352,6 @@ function Checkout() {
                   </table>
                 </div>
 
-                {/* Récap des totaux */}
                 <div className="text-right space-y-1">
                   <p className="text-gray-800">
                     <strong>Sous-total articles :</strong> CHF {itemsTotal}
@@ -399,7 +364,6 @@ function Checkout() {
                   </p>
                 </div>
 
-                {/* BOUTONS PRECEDENT / PAIEMENT */}
                 <div className="flex justify-between">
                   {step > 1 && (
                     <button
@@ -413,8 +377,7 @@ function Checkout() {
                     Payer maintenant
                   </button>
                 </div>
-
-                {/* Zone de paiement PayPal / Carte */}
+                
                 {showPayment && (
                   <div className="flex justify-center mt-8">
                     <PayPalScriptProvider

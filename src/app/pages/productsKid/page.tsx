@@ -5,12 +5,11 @@ import ProductsCard from "@/components/productsCard";
 
 const productsItems = [
   {
-    id: "tshirtEnfantBlanc",
-    title: "T-shirt blanc unisexe",
+    id: "Lilo&Stitch",
+    title: "T-shirt Lilo & Stitch",
     price: 30,
-    imgSource: "/tshirt-enfant.jpg",
-    description:
-      "Ce pantalon chino beige est fabriqué en coton de qualité supérieure, avec une légère touche d’élasthanne pour un confort optimal et une grande liberté de mouvement. Son design épuré et sa teinte neutre lui confèrent un style élégant et polyvalent. Fabriqué en Turquie, il allie confort et durabilité. Matière : 98% coton, 2% élasthanne Coupe : Droite, taille moyenne Couleur : Beige Entretien : Lavage en machine à 30°C Ce pantalon chino est idéal pour un look chic ou décontracté, selon l’occasion.",
+    imgSource: "/tshirtLiloStitch.webp",
+    description: "We",
   },
   {
     id: "tshirtMancheLongueEnfant",
@@ -51,13 +50,6 @@ const productsItems = [
     imgSource: "/helloKitty.avif",
     description:
       "Ce t-shirt blanc est confectionné en coton 100% biologique, offrant douceur, confort et respirabilité. Sa coupe droite et son col rond en font un basique intemporel, parfait pour toutes les occasions. Fabriqué avec soin, il garantit durabilité et qualité. Matière : 100% coton biologique Coupe : Droite, col rond Couleur : Blanc Entretien : Lavage en machine à 30°C Ce t-shirt est un essentiel polyvalent pour un style minimaliste et moderne.",
-  },
-  {
-    id: "tshirt-7",
-    title: "t-shirt",
-    price: 30,
-    imgSource: "/pexels-apunto-group-agencia-de-publicidad-53086916-7752793.jpg",
-    description: "We",
   },
   {
     id: "chaussettesCars",

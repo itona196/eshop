@@ -8,7 +8,6 @@ import { useWishlist } from "./wishlistProvider";
 function Navbar() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  // État pour gérer l'ouverture/fermeture du sous-menu "Produits"
   const [isProductsOpen, setIsProductsOpen] = useState(false);
 
   const { cartItems } = useCart();
@@ -27,24 +26,20 @@ function Navbar() {
 
   return (
     <div>
-      {/* --- SIDEBAR --- */}
       <div
         className={`fixed top-0 left-0 h-full w-48 bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-6 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 z-50 shadow-lg`}
-      >
-        {/* En-tête du menu latéral */}
+        } transition-transform duration-300 z-50 shadow-lg`}>
+    
         <div className="p-4 flex justify-between items-center">
           <h2 className="text-lg font-extrabold">Menu</h2>
           <button
             onClick={toggleSidebar}
-            className="text-gray-700 hover:text-black"
-          >
+            className="text-gray-700 hover:text-black">
             ✖
           </button>
         </div>
 
-        {/* --- NAVIGATION SIDEBAR --- */}
         <nav className="flex flex-col space-y-6 mt-6 px-4">
           <Link
             href="/"
@@ -54,9 +49,7 @@ function Navbar() {
             Accueil
           </Link>
 
-          {/* -- PRODUITS (menu + sous-menu) -- */}
           <div className="flex flex-col">
-            {/* Bouton cliquable pour Produits */}
             <button
               onClick={toggleProductsSubMenu}
               className="py-2 px-3 rounded-lg text-left font-semibold text-gray-800 hover:bg-gray-100 transition"
@@ -64,14 +57,12 @@ function Navbar() {
               Produits
             </button>
 
-            {/* Sous-menu: s'affiche seulement si isProductsOpen est true */}
             {isProductsOpen && (
               <div className="ml-4 flex flex-col space-y-2 mt-2">
                 <Link
                   href="/pages/products"
                   className="block py-1 px-3 rounded-lg text-gray-800 hover:bg-gray-100 transition"
                   onClick={() => {
-                    // On ferme la sidebar après le clic
                     toggleSidebar();
                     setIsProductsOpen(false);
                   }}
@@ -101,7 +92,6 @@ function Navbar() {
               </div>
             )}
           </div>
-          {/* -- Fin de la section Produits -- */}
 
           <Link
             href="/pages/cart"
@@ -127,16 +117,13 @@ function Navbar() {
         </nav>
       </div>
 
-      {/* --- BARRE DU HAUT --- */}
       <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 w-full h-16 grid grid-cols-3 items-center px-4 shadow-md fixed top-0 left-0 z-40">
-        {/* Bouton sidebar (colonne 1) */}
         <div className="flex items-center">
           <button onClick={toggleSidebar} className="text-gray-700 hover:text-black">
             <AlignCenter className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Logo (colonne 2 - centré) */}
         <div className="flex justify-center items-center">
           <Link
             href="/"
@@ -145,8 +132,7 @@ function Navbar() {
             Loop
           </Link>
         </div>
-
-        {/* Icônes (colonne 3) */}
+        
         <div className="flex justify-end space-x-4 items-center">
           <Link href="/pages/cart" className="relative">
             <ShoppingCart className="w-5 h-5 text-gray-700 hover:text-black" />
