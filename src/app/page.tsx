@@ -52,7 +52,8 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               whileHover={{ scale: 1.05 }}>
-              <Card className="h-[400px] w-full max-w-xs md:max-w-md flex flex-col rounded-lg overflow-hidden shadow-xl bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 transition-transform hover:shadow-2xl">
+              <Card className="h-[400px] w-full max-w-xs md:max-w-md flex flex-col rounded-lg overflow-hidden shadow-xl bg-gradient-to-br 
+              from-purple-100 via-blue-100 to-pink-100 transition-transform hover:shadow-2xl">
                 <CardContent className="flex-1 p-0">
                   <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
